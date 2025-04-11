@@ -333,6 +333,15 @@ def chatgpt():
     client_group_names = auth_info['client_group_names']
     access_token = auth_info['access_token']
 
+    group_names = auth_info.get('client_group_names', [])
+    group_names_str = ','.join(str(g) for g in group_names if g is not None) or '<none>'
+    logging.info(
+        "[webbackend] auth info | principal_id: " + str(auth_info.get('client_principal_id', '<missing>')) +
+        " | principal_name: " + str(auth_info.get('client_principal_name', '<missing>')) +
+        " | groups: " + group_names_str +
+        " | access_token: " + auth_info.get('access_token', '<missing>')[:40] + "..."
+    )
+
     function_key = get_function_key()
         
     try:
